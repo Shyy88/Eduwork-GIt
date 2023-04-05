@@ -34,7 +34,6 @@ describe('Working with inputs', () => {
             cy.get('.error-button').should('contain.text', 'Epic sadface: Sorry, this user has been locked out.')
         });
     
-
     });
 
 }); 
