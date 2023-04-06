@@ -24,28 +24,32 @@ describe('Working with inputs', () => {
             const password = user.password
 
             cy.get('#user-name').clear()
-            cy.get('#user-name').type("username")
+            cy.get('#user-name').type(username)
 
             cy.get('input[name="password"]').clear
-            cy.get('input[name="password"]').type('secret_sauce')
+            cy.get('input[name="password"]').type(password)
 
             cy.get('input[name ="login-button"]').click()
 
-            cy.get('.error-button').should('contain.text', 'Epic sadface: Sorry, this user has been locked out.')
+            cy.get('[data-test="error"]').should('contain.text', 'Epic sadface: Username and password do not match any user in this service')
         });
-    
-    
-    // it('Login website', () => {
-    //     cy.url().should('include', 'inventory.html')
-    //     cy.contains('product')
-    //     });
-
-
-    // it('Should try to add cart', () => {
-    //     cy.get('.inventory_item_name').should('have.text', 'Sauce Labs Backpack').click()
-    //     cy.get('#add-to-cart-sauce-labs-backpack').click()
-    //     });
-
     });
+
+    it('Home page', () => {
+            cy.get('#user-name').clear()
+            cy.get('#user-name').type('standard_user')
+
+            cy.get('input[name="password"]').clear()
+            cy.get('input[name="password"]').type('secret_sauce')
+
+            cy.get('input[name ="login-button"]').click()
+            cy.url().should('include', 'inventory.html')
+            cy.contains('Products')
+        });
+
+    it('Should try to add cart', () => {
+        cy.get('#item_4_title_link').should('contain.text', 'Sauce Labs Backpack').click()
+        cy.get('#add-to-cart-sauce-labs-backpack').click()
+        });
 
 }); 
